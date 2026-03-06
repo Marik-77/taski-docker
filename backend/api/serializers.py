@@ -1,9 +1,15 @@
+"""Serializers for API models."""
+
 from rest_framework import serializers
 
 from .models import Task
 
 
 class TaskSerializer(serializers.ModelSerializer):
+    """Serializer for Task model."""
+
     class Meta:
-        model = Task
-        fields = ('id', 'title', 'description', 'completed')
+        """Serializer metadata."""
+
+        model = Task  # noqa: BLK100
+        fields = ("id", "title", "description", "completed")
