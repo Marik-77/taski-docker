@@ -16,12 +16,14 @@ services:
     env_file: .env
     volumes:
       - static_volume:/backend_static
+    restart: always
   frontend:
     image: korsarr/taski_frontend  # Качаем с Docker Hub
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static_volume:/frontend_static
+    restart: always
   gateway:
     image: korsarr/taski_gateway  # Качаем с Docker Hub
     env_file: .env
@@ -29,3 +31,4 @@ services:
       - static_volume:/staticfiles/
     ports:
       - 8000:80
+    restart: always
