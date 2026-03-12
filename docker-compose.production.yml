@@ -30,8 +30,8 @@ services:
     restart: always
     networks:
       - taski_network
-  gateway:
-    image: korsarr/taski_gateway
+  nginx:
+    image: korsarr/taski_nginx
     env_file: .env
     volumes:
       - static_volume:/staticfiles/
