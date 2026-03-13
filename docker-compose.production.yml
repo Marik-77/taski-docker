@@ -31,7 +31,7 @@ services:
       - taski_network
     restart: always
   nginx:
-    image: korsarr/taski_nginx
+    image: korsarr/taski_gateway
     env_file: .env
     volumes:
       - static_volume:/staticfiles/
