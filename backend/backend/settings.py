@@ -31,6 +31,14 @@ INSTALLED_APPS = [
     "rest_framework",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://taski.webhop.me',
+    'https://taski.webhop.me',
+    'http://158.160.210.182',
+    'https://158.160.210.182',
+]
+
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
