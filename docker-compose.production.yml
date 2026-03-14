@@ -38,7 +38,6 @@ services:
     depends_on:
       - db
       - backend
-      - frontend
     image: korsarr/taski_gateway
     env_file: .env
     volumes:
