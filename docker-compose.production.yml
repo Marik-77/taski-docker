@@ -14,6 +14,8 @@ services:
       - taski_network
     restart: always
   backend:
+    depends_on:
+      - db
     image: korsarr/taski_backend
     env_file: .env
     volumes:
@@ -22,6 +24,10 @@ services:
       - taski_network
     restart: always
   frontend:
+    depends_on:
+      - backend
+      - bd
+      - gateway
     image: korsarr/taski_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
@@ -31,6 +37,8 @@ services:
       - taski_network
     restart: always
   nginx:
+    depends_on:
+      - backend
     image: korsarr/taski_gateway
     env_file: .env
     volumes:
