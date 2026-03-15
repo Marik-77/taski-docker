@@ -26,7 +26,6 @@ services:
   frontend:
     depends_on:
       - backend
-      - nginx
     image: korsarr/taski_frontend
     env_file: .env
     command: cp -r /app/build/. /frontend_static/
@@ -36,7 +35,6 @@ services:
       - taski_network
   nginx:
     depends_on:
-      - db
       - backend
     image: korsarr/taski_gateway
     env_file: .env
