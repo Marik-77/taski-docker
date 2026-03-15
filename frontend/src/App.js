@@ -4,7 +4,16 @@ import TaskEditModal from "./components/TaskEditModal";
 import Task from "./components/Task";
 import TabList from "./components/TabList";
 
-axios.interceptors.response.use(function (response) {
+
+const apiClient = axios.create({
+  baseURL: '/api',
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
+
+apiClient.interceptors.response.use(function (response) {
   if (response.headers['content-type'] !== 'application/json') {
     alert('unsupport data format in server response')
     return Promise.reject(new Error('unsupport data format'));
@@ -18,10 +27,10 @@ const App = () => {
   const [activeTask, setActiveTask] = useState(null);
 
   const refreshList = () => {
-    axios
-      .get("/api/tasks/")
+    apiClient
+      .get("/tasks/")
       .then((res) => setTaskList(res.data))
-      .catch(console.error);
+      .catch((err) => console.error('Error fetching tasks:', err));
   };
 
   useEffect(() => {
@@ -30,22 +39,22 @@ const App = () => {
 
   const handleSubmit = (item) => {
     const request = item.id
-      ? axios.put(`/api/tasks/${item.id}/`, item)
-      : axios.post("/api/tasks/", item);
+      ? apiClient.put(`/tasks/${item.id}/`, item)
+      : apiClient.post("/tasks/", item);
 
     request
       .then((res) => {
         refreshList();
         setActiveTask(null);
       })
-      .catch(console.error);
+      .catch((err) => console.error('Error saving task:', err));
   };
 
   const handleDelete = (item) => {
-    axios
-      .delete(`/api/tasks/${item.id}/`)
-      .then(refreshList)
-      .catch(console.error);
+    apiClient
+      .delete(`/tasks/${item.id}/`)
+      .then(() => refreshList())
+      .catch((err) => console.error('Error deleting task:', err));
   };
 
   const createTask = () => {
