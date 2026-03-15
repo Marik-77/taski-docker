@@ -2,6 +2,7 @@
 
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -9,7 +10,7 @@ from .serializers import TaskSerializer
 
 class TaskView(viewsets.ModelViewSet):
     """ViewSet for Task operations."""
-
+    permission_classes = [AllowAny]
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
 
